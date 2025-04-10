@@ -5,12 +5,11 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: my_super_password
-      POSTGRES_DB: restaurant
-      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: fast_api
     ports:
       - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data/pgdata
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       resources:
         limits:

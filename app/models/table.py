@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import DeclarativeBase
+from database import Base
 
-class Table(DeclarativeBase):
+class Table(Base):
     __tablename__ = "tables"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, unique=True)
     seats = Column(Integer)
     location = Column(String)

@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import DeclarativeBase
+from database import Base
 
 
-class Reservation(DeclarativeBase):
+class Reservation(Base):
     __tablename__ = "reservations"
 
     id = Column(Integer, primary_key=True)
