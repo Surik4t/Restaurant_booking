@@ -6,7 +6,7 @@ app = FastAPI()
 
 app.include_router(tables.router)
 
-@app.get("/home")
+@app.get("/")
 async def root():
     return {"message": "Restaurant booking API"}
 

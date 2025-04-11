@@ -1,8 +1,17 @@
+from app.models.table import Table
+from database import engine
+from fastapi import HTTPException
+
 tables = []
 
-def get_table():
+def get_tables():
     return tables
 
+
+def get_table(table_id):
+    if table_id not in tables:
+        raise HTTPException(status_code=404, detail="Table not found.")
+    return tables[table_id]
 
 def create_table(table):
     tables.append(table)
@@ -10,8 +19,7 @@ def create_table(table):
 
 
 def delete_table(table_id):
-    try:
-        tables.remove(table_id)
-    except Exception as e:
-        return e
+    if table_id not in tables:
+        raise HTTPException(status_code=404, detail="Table not found.")
+    tables.remove(table_id)
     return {"message": "Table removed."}
