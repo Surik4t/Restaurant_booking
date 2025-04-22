@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from app.routers import tables
+from app.routers import tables, reservations
 
 
 app = FastAPI()
 
 app.include_router(tables.router)
+app.include_router(reservations.router)
 
 @app.get("/")
 async def root():
