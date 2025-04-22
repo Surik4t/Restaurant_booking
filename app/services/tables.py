@@ -2,7 +2,6 @@ from app.models.table import Table
 from database import session
 from fastapi import HTTPException
 
-tables = []
 
 def get_tables() -> list[Table]:
     tables = [table for table in session.query(Table)]
