@@ -4,9 +4,9 @@ from fastapi import HTTPException
 
 tables = []
 
-def get_tables():
+def get_tables() -> list[Table]:
     tables = [table for table in session.query(Table)]
-    return {"tables:", *tables}
+    return tables
 
 
 def create_table(table):

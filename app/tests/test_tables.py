@@ -9,4 +9,4 @@ def test_add_table_endpoint_test():
     }
 
     response = add_table(payload)
-    assert response.status_code == 200
+    assert response["status_code"] == 200

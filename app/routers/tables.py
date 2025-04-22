@@ -11,7 +11,6 @@ def read_tables():
 
 @router.post("/table")
 def add_table(table: Table):
-    print(type(table), table)
     return create_table(table)
 
 
