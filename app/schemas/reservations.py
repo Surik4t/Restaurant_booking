@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class Reservation(BaseModel):
+class ReservationSchema(BaseModel):
     customer_name: str
     table_id: int
     reservation_time: datetime

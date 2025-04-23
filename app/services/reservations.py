@@ -1,30 +1,25 @@
-from app.models.reservation import Reservation
-from datetime import datetime
-from database import session
+from app.models.reservation import ReservationModel
 from fastapi import HTTPException
 
-tables = []
 
-def get_reservations() -> list[Reservation]:
-    reservations = [reservation for reservation in session.query(Reservation)]
-    return reservations
+def get_reservations(session) -> list[ReservationModel]:
+    return session.query(ReservationModel).all()
 
 
-def create_reservation(reservation):
-    reservation_model = Reservation(**dict(reservation))
-    with session:
-        try:
-            session.add(reservation_model)
-            session.commit()
-        except Exception as e:
-            session.rollback()
-            raise HTTPException(status_code=500, detail=str(e))
+def create_reservation(reservation, session):
+    reservation_model = ReservationModel(**dict(reservation))
+    try:
+        session.add(reservation_model)
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
     return {"message": "Table booked."}
 
 
-def delete_reservation(reservation_id):
+def delete_reservation(reservation_id, session):
     try:
-        reservation = session.query(Reservation).filter(Reservation.id==reservation_id).one()
+        reservation = session.query(ReservationModel).filter(ReservationModel.id == reservation_id).one()
         session.delete(reservation)
         session.commit()
     except Exception as e:

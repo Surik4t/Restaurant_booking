@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from database import Base
 
 
-class Reservation(Base):
+class ReservationModel(Base):
     __tablename__ = "reservations"
 
     id = Column(Integer, primary_key=True)

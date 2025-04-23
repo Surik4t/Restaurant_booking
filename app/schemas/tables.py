@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Table(BaseModel):
+class TableSchema(BaseModel):
     name: str
     seats: int
     location: str
