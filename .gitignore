@@ -1,4 +1,6 @@
-__pycache__/
+__pycache__
+*.pyc
+*$py.class
 /postgres_data
 /.idea
 .env
