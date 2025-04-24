@@ -9,6 +9,11 @@ app.include_router(tables.router)
 app.include_router(reservations.router)
 
 @app.get("/")
-async def root():
+def root():
     link = "<a href='http://127.0.0.1:8000/docs#/' style='font-size: 50'>API endpoints</a>"
     return HTMLResponse(content=link)
+
+
+@app.get("/ping")
+def pong():
+    return {"message": "pong"}
