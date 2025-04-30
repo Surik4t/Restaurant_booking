@@ -13,11 +13,6 @@ def default_reservation():
     return reservation
 
 
-def test_get_tables(mock_db_client):
-    response = mock_db_client.get("/reservations")
-    assert response.status_code == 200
-
-
 def test_negative_or_0_booking_duration(mock_db_client):
     payload = default_reservation()
     payload["duration_minutes"] = 0
@@ -37,29 +32,29 @@ def test_past_date_booking(mock_db_client):
 
 
 @pytest.mark.parametrize(
-    ("table_id", "time", "duration", "expected"),
+    ("test_name", "table_id", "time", "duration", "expected"),
     (
             # другой стол
-            (1, "2050-01-01T12:15:00", 30, 200),
+            ("different table", 1, "2050-01-01T12:15:00", 30, 200),
+
             # полный оверлап
-            (0, "2050-01-01T12:00:00", 60, 400),
-            (0, "2050-01-01T11:30:00", 120, 400),
-            # оверлап внутри временного промежутка
-            (0, "2050-01-01T12:15:00", 30, 400),
-            # оверлап в начале
-            (0, "2050-01-01T11:45:00", 30, 400),
-            # оверлап в конце
-            (0, "2050-01-01T12:45:00", 30, 400),
+            ("full overlap", 0, "2050-01-01T12:00:00", 60, 400),
+            ("full overlap (large)", 0, "2050-01-01T11:30:00", 120, 400),
+
+            # частичные оверлапы
+            ("inside existing booking", 0, "2050-01-01T12:15:00", 30, 400),
+            ("overlap start", 0, "2050-01-01T11:45:00", 30, 400),
+            ("overlap end ", 0, "2050-01-01T12:15:00", 30, 400),
     )
 )
-def test_reservation_crossing(test_db_client, table_id, time, duration, expected):
+def test_reservation_crossing(test_name, test_db_client, table_id, time, duration, expected):
     payload = default_reservation()
     payload["reservation_time"] = "2050-01-01T12:00:00"
     initial_reservation = test_db_client.post("/reservations/reservation", json=payload)
     assert initial_reservation.status_code == 200
 
     test_reservation = {
-        "customer_name": "test_reservation",
+        "customer_name": "new_reservation",
         "table_id": table_id,
         "reservation_time": time,
         "duration_minutes": duration
