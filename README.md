@@ -10,6 +10,21 @@ REST API для бронирования столиков в ресторане.
 * Alembic
 * Docker
 
+# Установка и запуск
+> Для запуска потребуется Docker
+* Клонируем проект и устанавливаем зависимости
+```
+git clone https://github.com/Surik4t/Restaurant_booking.git
+cd /Restauraint_booking
+pip install requirements.txt
+```
+* Запускаем БД и приложение
+```
+docker-compose up -d
+uvicorn app.main:app
+```
+АПИ-эндпоинты буду доступны по ссылке: http://127.0.0.1:8000/docs#/
+
 ###  Модели: 
 #### Table – столик в ресторане:
 * id: int
@@ -40,17 +55,4 @@ REST API для бронирования столиков в ресторане.
 * Бронь может длиться произвольное количество минут.
 * Валидации должны обрабатываться на уровне API (например, конфликт брони должен выдавать ошибку с пояснением).
 
-# Установка и запуск
-> Для запуска потребуется Docker
-* Клонируем проект и устанавливаем зависимости
-```
-git clone https://github.com/Surik4t/Restaurant_booking.git
-cd /Restauraint_booking
-pip install requirements.txt
-```
-* Запускаем БД и приложение
-```
-docker-compose up -d
-uvicorn app.main:app
-```
-АПИ-эндпоинты буду доступны по ссылке: http://127.0.0.1:8000/docs#/
+
